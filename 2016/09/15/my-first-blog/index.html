@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Welcome to my blog! This is my first post.">
 <meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-15%20%E4%B8%8B%E5%8D%884.11.40.png">
-<meta property="og:updated_time" content="2016-09-15T09:35:22.000Z">
+<meta property="og:updated_time" content="2016-09-15T09:45:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第一篇博客：利用gitpage和hexo搭建一个个人博客">
 <meta name="twitter:description" content="Welcome to my blog! This is my first post.">
@@ -334,12 +334,12 @@
 <p>这样在浏览器输入：</p>
 <p><code>http://yourAcount.github.io</code></p>
 <p>便可以直接访问到hexo默认主页</p>
-<h2 id="写第一篇博客"><a href="#写第一篇博客" class="headerlink" title="写第一篇博客"></a>写第一篇博客</h2><p>这里推荐大家下一个markdown编辑器：Mou，感觉挺好用，当然还有很多其他的markdown编辑器。在自己博客里写博文主要就是用markdown了，所以还推荐大家到如下页面学习下markdown语法：</p>
+<h2 id="写第一篇博客"><a href="#写第一篇博客" class="headerlink" title="写第一篇博客"></a>写第一篇博客</h2><p>这里推荐大家下一个markdown编辑器：<strong>Mou</strong>，感觉挺好用，当然还有很多其他的markdown编辑器。在自己博客里写博文主要就是用markdown了，所以还推荐大家到如下页面学习下markdown语法：</p>
 <p><a href="https://www.zybuluo.com/mdeditor" target="_blank" rel="external">Markdown 教程</a></p>
 <p>我觉得可以一遍写一遍学，这个语法应该不难，接下来在blog文件夹里用如下指令创建自己的第一篇博文：</p>
 <p><code>hexo new &quot;your blog name&quot;</code></p>
 <p>这条指令执行后会在source文件夹中的post文件夹里生成一个新的md文件，用Mou打开开始编辑，比如改成如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 第一篇博客：利用gitpage和hexo搭建一个个人博客</div><div class="line"></div><div class="line">date: 2016-09-15 09:46:34</div><div class="line"></div><div class="line">tags: blog hexo</div><div class="line"></div><div class="line">description: &quot;Welcome to my blog! This is my first post.&quot;</div><div class="line">---</div><div class="line"></div><div class="line">your content</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 利用gitpage和hexo搭建一个个人博客</div><div class="line"></div><div class="line">date: 2016-09-15 09:46:34</div><div class="line"></div><div class="line">tags: blog hexo</div><div class="line"></div><div class="line">description: &quot;Welcome to my blog! This is my first post.&quot;</div><div class="line">---</div><div class="line">your content</div></pre></td></tr></table></figure>
 <p>改好后在blog下执行<code>hexo g &amp;&amp; hexo s</code>指令生成静态文件并本地启动，然后在浏览器输入<code>localhost:4000</code>查看效果，我们会发现多了一篇你刚刚写的博文</p>
 <p>之后博文的润色，就要参照markdown语法自己慢慢修改了。</p>
 <h2 id="选择自己喜欢的hexo主题"><a href="#选择自己喜欢的hexo主题" class="headerlink" title="选择自己喜欢的hexo主题"></a>选择自己喜欢的hexo主题</h2><p>在github上有许多为hexo量身定做的主题，基本可以满足不同人的口味。可以上github自己搜索，这里是知乎给出的推荐：</p>
@@ -353,7 +353,7 @@
 <li><a href="https://github.com/Huxpro/huxpro.github.io" target="_blank" rel="external">huxpro</a></li>
 </ul>
 </blockquote>
-<p>选好主题后，按照主题作者给出的说明应该就可以完成了，也就几条指令而已。当然之后要完善我觉得还是要废些功夫。所以我最推荐的还是第一个主题yelee作者给出了很详细的说明，使用起来很方便，也是我现在博客所用的主题。对于博文里的照片自然是不能用本地的，肯定是要放到网上，这里我推荐使用七牛云提供的个人空间和外链服务，将你的照片外链，然后直接引入链接就好。</p>
+<p>选好主题后，按照主题作者给出的说明应该就可以完成了，也就几条指令而已。当然之后要完善我觉得还是要废些功夫。所以我最推荐的还是第一个主题<strong>yelee</strong>作者给出了很详细的说明，使用起来很方便，也是我现在博客所用的主题。对于博文里的照片自然是不能用本地的，肯定是要放到网上，这里我推荐使用<strong>七牛云</strong>提供的个人空间和外链服务，将你的照片外链，然后直接引入链接就好。</p>
 
       
     </div>
@@ -365,7 +365,7 @@
         <p><span>本文标题:</span><a href="">第一篇博客：利用gitpage和hexo搭建一个个人博客</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Dark Feng</a></p>
         <p><span>发布时间:</span>2016-09-15, 09:46:34</p>
-        <p><span>最后更新:</span>2016-09-15, 17:35:22</p>
+        <p><span>最后更新:</span>2016-09-15, 17:45:27</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="" title="第一篇博客：利用gitpage和hexo搭建一个个人博客">http://yoursite.com/2016/09/15/my-first-blog/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/09/15/my-first-blog/　　作者: Dark Feng" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
