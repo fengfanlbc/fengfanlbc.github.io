@@ -15,18 +15,20 @@
 
 
 
-<meta name="description" content="基于gitpage搭建一个个人博客">
+<meta name="description" content="本文将初步介绍基因分析的一般流程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用gitpage和hexo搭建一个个人博客">
-<meta property="og:url" content="http://yoursite.com/2016/09/15/my-first-blog/index.html">
+<meta property="og:title" content="基因数据分析（一）">
+<meta property="og:url" content="http://yoursite.com/2017/01/09/基因数据分析（一）/index.html">
 <meta property="og:site_name" content="Feng的博客">
-<meta property="og:description" content="基于gitpage搭建一个个人博客">
-<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-15%20%E4%B8%8B%E5%8D%884.11.40.png">
+<meta property="og:description" content="本文将初步介绍基因分析的一般流程">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/%E5%9F%BA%E5%9B%A0%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/vcf_file.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/annovar.png">
 <meta property="og:updated_time" content="2017-04-29T08:23:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用gitpage和hexo搭建一个个人博客">
-<meta name="twitter:description" content="基于gitpage搭建一个个人博客">
-<meta name="twitter:image" content="http://odbihfqll.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-15%20%E4%B8%8B%E5%8D%884.11.40.png">
+<meta name="twitter:title" content="基因数据分析（一）">
+<meta name="twitter:description" content="本文将初步介绍基因分析的一般流程">
+<meta name="twitter:image" content="http://odbihfqll.bkt.clouddn.com/%E5%9F%BA%E5%9B%A0%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -58,7 +60,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>利用gitpage和hexo搭建一个个人博客 | Feng的博客</title>
+<title>基因数据分析（一） | Feng的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -262,11 +264,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-my-first-blog" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-基因数据分析（一）" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="" class="article-date">
-      <time datetime="2016-09-15T01:46:34.000Z" itemprop="datePublished">2016-09-15</time>
+      <time datetime="2017-01-09T02:27:56.000Z" itemprop="datePublished">2017-01-09</time>
 </a>
 
 
@@ -281,7 +283,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      利用gitpage和hexo搭建一个个人博客
+      基因数据分析（一）
     </h1>
   
 
@@ -292,7 +294,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/blog-hexo/">blog hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/数据分析/">数据分析</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -305,59 +307,16 @@
         <a id="more"></a>
 <p><em>“we only live once”</em></p>
 <p><br></p>
-<h1 id="Mac上基于gitpage和hexo搭建个人博客"><a href="#Mac上基于gitpage和hexo搭建个人博客" class="headerlink" title="Mac上基于gitpage和hexo搭建个人博客"></a>Mac上基于gitpage和hexo搭建个人博客</h1><p>之前一直就想搭一个个人博客，总觉得博客园，cnblog之类的太丑，简书挺漂亮的但是还是感觉不是自己的东西。本来想尝试自己买个服务器然后基于wordpress搭建一个博客，但是觉得太麻烦······于是综合考虑选择了gitpage+hexo搭建，以下是我的一个搭建流程：</p>
-<blockquote>
-<ul>
-<li>配置环境：安装Node，安装Git</li>
-<li>安装hexo</li>
-<li>注册一个github账户</li>
-<li>创建仓库</li>
-<li>将hexo部署到gitpage上</li>
-<li>创建第一篇博客</li>
-<li>选择一个自己喜欢的主题</li>
-</ul>
-</blockquote>
-<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><p>Hexo是一个静态博客生成器，用node.js开发，作者是一名台湾大学生（感觉好牛），node.js可以到对应官网上下载最新版本。git的话安装了xcode会自带。</p>
-<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>然后新建一个名为blog的文件夹，进入该文件夹后执行如下命令安装Hexo：</p>
-<p><code>npm install hexo -g hexo</code></p>
-<p>执行如下命令进行初始化：</p>
-<p><code>hexo init</code></p>
-<p>安装依赖包：</p>
-<p><code>sudo npm install</code></p>
-<p>这样所有的安装工作就完成了，进入blog文件夹这行如下命令生成静态页面：</p>
-<p><code>hexo g</code></p>
-<p>然后执行本地启动命令：</p>
-<p><code>hexo s</code></p>
-<p>执行完后在浏览器输入：</p>
-<p><code>http://localhost:4000</code></p>
-<p>这样你就可以看到hexo默认的静态页面效果了</p>
-<h2 id="部署至github"><a href="#部署至github" class="headerlink" title="部署至github"></a>部署至github</h2><p>部署之前得去注册一个github账户，这个很简单，然后新建一个repository，如图所示：</p>
-<p><img src="http://odbihfqll.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-15%20%E4%B8%8B%E5%8D%884.11.40.png" alt="my repository"></p>
-<p>然后进入blog文件夹内使用如下指令部署至github：</p>
-<p><code>hexo d</code></p>
-<p>这样在浏览器输入：</p>
-<p><code>http://yourAcount.github.io</code></p>
-<p>便可以直接访问到hexo默认主页</p>
-<h2 id="写第一篇博客"><a href="#写第一篇博客" class="headerlink" title="写第一篇博客"></a>写第一篇博客</h2><p>这里推荐大家下一个markdown编辑器：<strong>Mou</strong>，感觉挺好用，当然还有很多其他的markdown编辑器。在自己博客里写博文主要就是用markdown了，所以还推荐大家到如下页面学习下markdown语法：</p>
-<p><a href="https://www.zybuluo.com/mdeditor" target="_blank" rel="external">Markdown 教程</a></p>
-<p>我觉得可以一边写一边学，这个语法应该不难，接下来在blog文件夹里用如下指令创建自己的第一篇博文：</p>
-<p><code>hexo new &quot;your blog name&quot;</code></p>
-<p>这条指令执行后会在source文件夹中的post文件夹里生成一个新的md文件，用Mou打开开始编辑，比如改成如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">title: 利用gitpage和hexo搭建一个个人博客</div><div class="line"></div><div class="line">date: 2016-09-15 09:46:34</div><div class="line"></div><div class="line">tags: blog hexo</div><div class="line"></div><div class="line">description: &quot;Welcome to my blog! This is my first post.&quot;</div><div class="line">---</div><div class="line">your content</div></pre></td></tr></table></figure>
-<p>改好后在blog下执行<code>hexo g &amp;&amp; hexo s</code>指令生成静态文件并本地启动，然后在浏览器输入<code>localhost:4000</code>查看效果，我们会发现多了一篇你刚刚写的博文</p>
-<p>之后博文的润色，就要参照markdown语法自己慢慢修改了。</p>
-<h2 id="选择自己喜欢的hexo主题"><a href="#选择自己喜欢的hexo主题" class="headerlink" title="选择自己喜欢的hexo主题"></a>选择自己喜欢的hexo主题</h2><p>在github上有许多为hexo量身定做的主题，基本可以满足不同人的口味。可以上github自己搜索，这里是知乎给出的推荐：</p>
-<p><a href="http://www.zhihu.com/question/24422335/answer/46357100" target="_blank" rel="external">hexo theme</a></p>
-<p>我的推荐是这几款：</p>
-<blockquote>
-<ul>
-<li><a href="https://github.com/fengfanlbc/hexo-theme-yelee" target="_blank" rel="external">yelee</a></li>
-<li><a href="https://github.com/fengfanlbc/hexo-themes-cover" target="_blank" rel="external">cover</a></li>
-<li><a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank" rel="external">apollo</a></li>
-<li><a href="https://github.com/Huxpro/huxpro.github.io" target="_blank" rel="external">huxpro</a></li>
-</ul>
-</blockquote>
-<p>选好主题后，按照主题作者给出的说明应该就可以完成了，也就几条指令而已。当然之后要完善我觉得还是要废些功夫。所以我最推荐的还是第一个主题<strong>yelee</strong>作者给出了很详细的说明，使用起来很方便，也是我现在博客所用的主题。对于博文里的照片自然是不能用本地的，肯定是要放到网上，这里我推荐使用<strong>七牛云</strong>提供的个人空间和外链服务，将你的照片外链，然后直接引入链接就好。</p>
+<p>最近在做一个关于基于数据分析的项目，主要是针对一种罕见病找出相关的有可能的致病基因，对于基因分析，往往资料特别难找，由于不具备生物学的相关理论知识，所以即使找到了也是很难理解。具体的分析流程比较繁琐大多数人刚开始的时候一头雾水。我在做的时候也经历了这些比较痛苦的阶段，所以我想分享出我的一些经验以给有需要的人提供些帮助，减少走弯路的时间。<br>这篇博客我会先介绍一般的分析流程，在以后的博客中将会更加详细的介绍具体内容。</p>
+<h2 id="分析流程"><a href="#分析流程" class="headerlink" title="分析流程"></a>分析流程</h2><p>首先我们要了解我们所获取的数据，这里我们的项目中所用到的是患者的全基因组数据，所以最原始的数据当然是医学人员通过基因测序工具所获取得到的，它的数据类型是FASTQ，这种文件记录了所测碱基读段和质量分数，每条读段会占4行，这种数据没有相关的理论知识是很难理解的，可以查阅相关的资料，不懂也没有太大关系，后面转化为其它格式的文件并处理（添加注释）后会一目了然。</p>
+<p>我们得到患者的基因组数据后，就对着一堆碱基序列是没有任何意义的 ，我们还要知道他们的基因组数据每一部分都对应着什么基因，这里要使用一个叫做<strong>BWA</strong>的基因分析工具，它会把短序列和参考基因组对比，从而确定我们所测到的短序列在基因组上的具体位置，从而重新组装成完整的人类参考基因组，这时我们会得到一个<strong>sam</strong>类型的文件。由于我们是要用程序进行分析数据，所以当然希望在不影响信息量的情况下压缩数据（一个人的基因数据是非常大的，一般是3G左右），这样运算速度就会更快，这里我们使用<strong>Samtools</strong>软件将这些短序列按照一定顺序排列（按照染色体排列1~22,X,Y)，并进行数据格式转换，将sam文件转化为<strong>bam</strong>文件（一种二进制文件）。另外由于在对人进行基因测序的时候往往会进行多次测序以保证完整和正确，这样就必然会产生冗余数据以及一些额外的噪声，我们需要将这些数据清除，这里可以使用<strong>Picard</strong>工具实现去重功能，将冗余信息和噪声去掉。在以上任务都完成后，我们需要将患者的基因组数据和正常的基因组数据进行比对，找出变异点，这可以说是在前期最关键的一项工作了，这里可以使用<strong>GATK</strong>软件，它是现在用来寻找变异的主流软件，说到变异，根据不同的研究目的会划分为多种，什么单碱基变异、短插入缺失等等，还可以分为同义突变和非同义突变，像<em>同义突变</em>对于分析来说就没有很大意义了，因为这种突变并不会产生任何影响，所以在后期要进行过滤，这里我们将得到<strong>vcf</strong>类型的文件，这种文件相比于之前的文件就好看多了。为了进一步的用于分析，我们需要添加<strong>注释</strong>，比如说明该变异所在的染色体，开始位置，结束位置，参考基因，基因类型，影响程度等等，根据不同的分析目的添加不同的注释，这里可以使用<strong>ANNOVAR</strong>高效注释变异的工具，添加注释信息只需要添加对应的注释库就行了，十分方便，生成的<strong>csv</strong>文件也便于进一步的分析。以下是运行流程图：</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/%E5%9F%BA%E5%9B%A0%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="流程图"></p>
+<p>以下是生成的vcf文件和csv注释文件截图：<br><em>vcf file</em>：</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/vcf_file.png" alt="vcf file"></p>
+<p><em>csv file</em>:</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/annovar.png" alt="csv file"></p>
+<p>在后面的博客中将会详细介绍文件中所包含的信息，特别是对于得到的注释文件的分析。</p>
+<p>说明：上述这些软件基本都需要运行在Linux工作环境下，所以需要有一定的Linux基础，因为在安装过程中会遇到一些小麻烦，不过大部分都可以通过Google解决~</p>
 
       
     </div>
@@ -366,13 +325,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="">利用gitpage和hexo搭建一个个人博客</a></p>
+        <p><span>Title:</span><a href="">基因数据分析（一）</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">Feng Fan</a></p>
-        <p><span>Created:</span>2016-09-15, 09:46:34</p>
+        <p><span>Created:</span>2017-01-09, 10:27:56</p>
         <p><span>Updated:</span>2017-04-29, 16:23:10</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="" title="利用gitpage和hexo搭建一个个人博客">http://yoursite.com/2016/09/15/my-first-blog/</a>
-            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2016/09/15/my-first-blog/　　By Feng Fan" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="" title="基因数据分析（一）">http://yoursite.com/2017/01/09/基因数据分析（一）/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2017/01/09/基因数据分析（一）/　　By Feng Fan" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -385,11 +344,17 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="../../../12/20/多电脑维护hexo/">
-                    多电脑维护hexo
+                <a href="../../10/在Intellij上搭建spring小项目/">
+                    在IntelliJ上搭建spring小项目
                 </a>
             </div>
         
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../../../../2016/12/24/在云服务器上使用tomcat部署jav aweb项目/">
+                    在云服务器上使用tomcat部署java web项目
+                </a>
+            </div>
         
     </nav>
 
@@ -399,7 +364,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mac上基于gitpage和hexo搭建个人博客"><span class="toc-number">1.</span> <span class="toc-text">Mac上基于gitpage和hexo搭建个人博客</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置环境"><span class="toc-number">1.1.</span> <span class="toc-text">配置环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装hexo"><span class="toc-number">1.2.</span> <span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署至github"><span class="toc-number">1.3.</span> <span class="toc-text">部署至github</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写第一篇博客"><span class="toc-number">1.4.</span> <span class="toc-text">写第一篇博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择自己喜欢的hexo主题"><span class="toc-number">1.5.</span> <span class="toc-text">选择自己喜欢的hexo主题</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分析流程"><span class="toc-number">1.</span> <span class="toc-text">分析流程</span></a></li></ol>
         
     </div>
     <style>
@@ -435,7 +400,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"利用gitpage和hexo搭建一个个人博客　| Feng的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"基因数据分析（一）　| Feng的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -455,7 +420,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="../../../12/20/多电脑维护hexo/" title="Pre: 多电脑维护hexo">
+            <a href="../../10/在Intellij上搭建spring小项目/" title="Pre: 在IntelliJ上搭建spring小项目">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -463,11 +428,13 @@
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
+            <a href="../../../../2016/12/24/在云服务器上使用tomcat部署jav aweb项目/" title="Next: 在云服务器上使用tomcat部署java web项目">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../../../2017/01/10/在Intellij上搭建spring小项目/">在IntelliJ上搭建spring小项目</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2017/01/09/基因数据分析（一）/">基因数据分析（一）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../12/24/在云服务器上使用tomcat部署jav aweb项目/">在云服务器上使用tomcat部署java web项目</a></li><li class="post-list-item"><a class="post-list-link" href="../../../12/20/多电脑维护hexo/">多电脑维护hexo</a></li><li class="post-list-item"><a class="post-list-link" href="">利用gitpage和hexo搭建一个个人博客</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../10/在Intellij上搭建spring小项目/">在IntelliJ上搭建spring小项目</a></li><li class="post-list-item"><a class="post-list-link" href="">基因数据分析（一）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/12/24/在云服务器上使用tomcat部署jav aweb项目/">在云服务器上使用tomcat部署java web项目</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/12/20/多电脑维护hexo/">多电脑维护hexo</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/09/15/my-first-blog/">利用gitpage和hexo搭建一个个人博客</a></li></ul>
 
 
 
