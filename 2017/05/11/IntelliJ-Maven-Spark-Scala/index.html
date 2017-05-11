@@ -14,19 +14,27 @@
 <meta name="author" content="Feng Fan" />
 
 
-    
-    
 
-
-<meta name="description" content="a student from bupt">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Feng的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="在学习 Spark 的时候，如果有一个好的简便的开发工具和固定的流程，会使得学习更加简单， 这里要介绍的就是在查找和尝试各种开发流程后总结出来的经验。
+首先我假定已经安装好了 Intellij，以及Scala 插件。第一步需要下载 Spark（我下的是spark-2.1.1-bin-hadoop2.7）以及对应的 Scala（2.11.0），这两个的安装过程比较简单就不介绍了，安装后配置环境变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IntelliJ-Maven-Spark-Scala">
+<meta property="og:url" content="http://yoursite.com/2017/05/11/IntelliJ-Maven-Spark-Scala/index.html">
 <meta property="og:site_name" content="Feng的博客">
-<meta property="og:description" content="a student from bupt">
+<meta property="og:description" content="在学习 Spark 的时候，如果有一个好的简便的开发工具和固定的流程，会使得学习更加简单， 这里要介绍的就是在查找和尝试各种开发流程后总结出来的经验。
+首先我假定已经安装好了 Intellij，以及Scala 插件。第一步需要下载 Spark（我下的是spark-2.1.1-bin-hadoop2.7）以及对应的 Scala（2.11.0），这两个的安装过程比较简单就不介绍了，安装后配置环境变量">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic01.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic04.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic06.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic08.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic09.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic10.png">
+<meta property="og:updated_time" content="2017-05-11T03:29:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feng的博客">
-<meta name="twitter:description" content="a student from bupt">
+<meta name="twitter:title" content="IntelliJ-Maven-Spark-Scala">
+<meta name="twitter:description" content="在学习 Spark 的时候，如果有一个好的简便的开发工具和固定的流程，会使得学习更加简单， 这里要介绍的就是在查找和尝试各种开发流程后总结出来的经验。
+首先我假定已经安装好了 Intellij，以及Scala 插件。第一步需要下载 Spark（我下的是spark-2.1.1-bin-hadoop2.7）以及对应的 Scala（2.11.0），这两个的安装过程比较简单就不介绍了，安装后配置环境变量">
+<meta name="twitter:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic01.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -51,16 +59,14 @@
     <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../../../css/style.css">
 
-
-    <style> .article { opacity: 0;} </style>
 
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Feng的博客</title>
+<title>IntelliJ-Maven-Spark-Scala | Feng的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -69,8 +75,8 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: true,
-        isPost: false,
+        isHome: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -121,13 +127,13 @@
                     <nav class="header-menu">
                         <ul>
                         
-                            <li><a href="index.html">主页</a></li>
+                            <li><a href="../../../../index.html">主页</a></li>
                         
-                            <li><a href="/archives/">所有文章</a></li>
+                            <li><a href="../../../../archives/">所有文章</a></li>
                         
-                            <li><a href="/tags/">标签云</a></li>
+                            <li><a href="../../../../tags/">标签云</a></li>
                         
-                            <li><a href="/about/">关于我</a></li>
+                            <li><a href="../../../../about/">关于我</a></li>
                         
                         </ul>
                     </nav>
@@ -190,13 +196,13 @@
             <nav class="header-menu">
                 <ul>
                 
-                    <li><a href="index.html">主页</a></li>
+                    <li><a href="../../../../index.html">主页</a></li>
                 
-                    <li><a href="/archives/">所有文章</a></li>
+                    <li><a href="../../../../archives/">所有文章</a></li>
                 
-                    <li><a href="/tags/">标签云</a></li>
+                    <li><a href="../../../../tags/">标签云</a></li>
                 
-                    <li><a href="/about/">关于我</a></li>
+                    <li><a href="../../../../about/">关于我</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -214,12 +220,10 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-IntelliJ-Maven-Spark-Scala" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-IntelliJ-Maven-Spark-Scala" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="2017/05/11/IntelliJ-Maven-Spark-Scala/" class="article-date">
+      <a href="" class="article-date">
       <time datetime="2017-05-11T02:52:38.000Z" itemprop="datePublished">2017-05-11</time>
 </a>
 
@@ -234,12 +238,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="2017/05/11/IntelliJ-Maven-Spark-Scala/">IntelliJ-Maven-Spark-Scala</a>
+    <h1 class="article-title" itemprop="name">
+      IntelliJ-Maven-Spark-Scala
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Spark/">Spark</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -280,353 +295,79 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Spark/">Spark</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-在Intellij上搭建spring小项目" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="2017/01/10/在Intellij上搭建spring小项目/" class="article-date">
-      <time datetime="2017-01-10T02:40:11.000Z" itemprop="datePublished">2017-01-10</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+
+
+    <nav id="article-nav">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2017/01/10/在Intellij上搭建spring小项目/">在IntelliJ上搭建spring小项目</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              IntelliJ上通过Maven搭建一个spring项目，同时解决导致Maven搭建速度慢的问题
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/JavaWeb/">JavaWeb</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="2017/01/10/在Intellij上搭建spring小项目/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-基因数据分析（一）" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="2017/01/09/基因数据分析（一）/" class="article-date">
-      <time datetime="2017-01-09T02:27:56.000Z" itemprop="datePublished">2017-01-09</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2017/01/09/基因数据分析（一）/">基因数据分析（一）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              本文将初步介绍基因分析的一般流程
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/数据分析/">数据分析</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="2017/01/09/基因数据分析（一）/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-在云服务器上使用tomcat部署jav aweb项目" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="2016/12/24/在云服务器上使用tomcat部署jav aweb项目/" class="article-date">
-      <time datetime="2016-12-24T12:36:39.000Z" itemprop="datePublished">2016-12-24</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../../../01/10/在Intellij上搭建spring小项目/">
+                    在IntelliJ上搭建spring小项目
+                </a>
+            </div>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2016/12/24/在云服务器上使用tomcat部署jav aweb项目/">在云服务器上使用tomcat部署java web项目</a>
-    </h1>
-  
+    </nav>
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              在云服务器上安装配置tomcat，MySQL，将项目部署至云服务器上
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/JavaWeb/">JavaWeb</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="2016/12/24/在云服务器上使用tomcat部署jav aweb项目/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
 </article>
 
-
-
-
-
-
-
-
-
-  
-    <article id="post-多电脑维护hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="2016/12/20/多电脑维护hexo/" class="article-date">
-      <time datetime="2016-12-20T13:28:54.000Z" itemprop="datePublished">2016-12-20</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2016/12/20/多电脑维护hexo/">多电脑维护hexo</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              用github备份实现多台电脑共同维护hexo
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/hexo/">hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="2016/12/20/多电脑维护hexo/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-my-first-blog" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="2016/09/15/my-first-blog/" class="article-date">
-      <time datetime="2016-09-15T01:46:34.000Z" itemprop="datePublished">2016-09-15</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2016/09/15/my-first-blog/">利用gitpage和hexo搭建一个个人博客</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              基于gitpage搭建一个个人博客
-          
-      
     </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/blog-hexo/">blog hexo</a></li></ul>
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="../../../01/10/在Intellij上搭建spring小项目/" title="下一篇: 在IntelliJ上搭建spring小项目">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
 
-      
-        <p class="article-more-link">
-          <a href="2016/09/15/my-first-blog/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="">IntelliJ-Maven-Spark-Scala</a></li><li class="post-list-item"><a class="post-list-link" href="../../../01/10/在Intellij上搭建spring小项目/">在IntelliJ上搭建spring小项目</a></li><li class="post-list-item"><a class="post-list-link" href="../../../01/09/基因数据分析（一）/">基因数据分析（一）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/12/24/在云服务器上使用tomcat部署jav aweb项目/">在云服务器上使用tomcat部署java web项目</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/12/20/多电脑维护hexo/">多电脑维护hexo</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/09/15/my-first-blog/">利用gitpage和hexo搭建一个个人博客</a></li></ul>
 
 
 
 
-
-
-
-
-
-  
-  
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
