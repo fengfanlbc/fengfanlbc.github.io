@@ -15,25 +15,22 @@
 
 
 
-<meta name="description" content="在学习 Spark 的时候，如果有一个好的简便的开发工具和固定的流程，会使得学习更加简单， 这里要介绍的就是在查找和尝试各种开发流程后总结出来的经验。
-首先我假定已经安装好了 Intellij，以及Scala 插件。第一步需要下载 Spark（我下的是spark-2.1.1-bin-hadoop2.7）以及对应的 Scala（2.11.0），这两个的安装过程比较简单就不介绍了，安装后配置环境变量">
+<meta name="description" content="IntelliJ+Maven+Scala+Spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IntelliJ-Maven-Spark-Scala">
 <meta property="og:url" content="http://yoursite.com/2017/05/11/IntelliJ-Maven-Spark-Scala/index.html">
 <meta property="og:site_name" content="Feng的博客">
-<meta property="og:description" content="在学习 Spark 的时候，如果有一个好的简便的开发工具和固定的流程，会使得学习更加简单， 这里要介绍的就是在查找和尝试各种开发流程后总结出来的经验。
-首先我假定已经安装好了 Intellij，以及Scala 插件。第一步需要下载 Spark（我下的是spark-2.1.1-bin-hadoop2.7）以及对应的 Scala（2.11.0），这两个的安装过程比较简单就不介绍了，安装后配置环境变量">
+<meta property="og:description" content="IntelliJ+Maven+Scala+Spark">
 <meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic01.png">
 <meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic04.png">
 <meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic06.png">
 <meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic08.png">
 <meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic09.png">
 <meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic10.png">
-<meta property="og:updated_time" content="2017-05-11T03:29:38.000Z">
+<meta property="og:updated_time" content="2017-05-11T03:33:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IntelliJ-Maven-Spark-Scala">
-<meta name="twitter:description" content="在学习 Spark 的时候，如果有一个好的简便的开发工具和固定的流程，会使得学习更加简单， 这里要介绍的就是在查找和尝试各种开发流程后总结出来的经验。
-首先我假定已经安装好了 Intellij，以及Scala 插件。第一步需要下载 Spark（我下的是spark-2.1.1-bin-hadoop2.7）以及对应的 Scala（2.11.0），这两个的安装过程比较简单就不介绍了，安装后配置环境变量">
+<meta name="twitter:description" content="IntelliJ+Maven+Scala+Spark">
 <meta name="twitter:image" content="http://odbihfqll.bkt.clouddn.com/image/spark-01/pic01.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -261,6 +258,8 @@
       
           
         <a id="more"></a>
+<p><em>“we only live once”</em></p>
+<p><br></p>
 <p>在学习 <em>Spark</em> 的时候，如果有一个好的简便的开发工具和固定的流程，会使得学习更加简单， 这里要介绍的就是在查找和尝试各种开发流程后总结出来的经验。</p>
 <p>首先我假定已经安装好了 Intellij，以及<em>Scala</em> 插件。第一步需要下载 Spark（我下的是<strong>spark-2.1.1-bin-hadoop2.7</strong>）以及对应的 Scala（2.11.0），这两个的安装过程比较简单就不介绍了，安装后配置环境变量并运行 <em>Spark-shell</em> 进行简单的测试。这里重点讲的是环境搭建好后如何在Intellij 平台上高效开发。</p>
 <p>首先打开 Intellij 后新建 maven 项目，这里要注意，需要 <strong>Add Archetype</strong>，这里要添加maven-scala-plugin，Intellij 默认的总是出各种问题。这个信息可以在 maven repository 中查看到。</p>
