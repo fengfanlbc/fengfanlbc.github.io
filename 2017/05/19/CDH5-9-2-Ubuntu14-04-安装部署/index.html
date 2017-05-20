@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Feng Fan" />
+
+
+
+<meta name="description" content="因为毕设需要用到 Hadoop 生态环境中的很多组件，一个个安装和维护十分不方便，并且没有直观的页面显示，所以采用 Cloudera 公司的 CDH（Cloudera’s Distribution Including Apache Hadoop），这是中国绝大部分公司使用的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CDH5.9.2 Ubuntu14.04 安装部署">
+<meta property="og:url" content="http://yoursite.com/2017/05/19/CDH5-9-2-Ubuntu14-04-安装部署/index.html">
+<meta property="og:site_name" content="Feng的博客">
+<meta property="og:description" content="因为毕设需要用到 Hadoop 生态环境中的很多组件，一个个安装和维护十分不方便，并且没有直观的页面显示，所以采用 Cloudera 公司的 CDH（Cloudera’s Distribution Including Apache Hadoop），这是中国绝大部分公司使用的。">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh01.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh02.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh03.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh04.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh05.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh06.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh07.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh08.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh09.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh10.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh11.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh12.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh13.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh14.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh15.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh16.png">
+<meta property="og:updated_time" content="2017-05-20T03:45:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CDH5.9.2 Ubuntu14.04 安装部署">
+<meta name="twitter:description" content="因为毕设需要用到 Hadoop 生态环境中的很多组件，一个个安装和维护十分不方便，并且没有直观的页面显示，所以采用 Cloudera 公司的 CDH（Cloudera’s Distribution Including Apache Hadoop），这是中国绝大部分公司使用的。">
+<meta name="twitter:image" content="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh01.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Feng的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="http://odbihfqll.bkt.clouddn.com/f.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>CDH5.9.2 Ubuntu14.04 安装部署 | Feng的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="http://odbihfqll.bkt.clouddn.com/u=738958558,2199681430&amp;fm=21&amp;gp=0.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Feng Fan</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">we only live once</p>
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="../../../../index.html">主页</a></li>
+                        
+                            <li><a href="../../../../archives/">所有文章</a></li>
+                        
+                            <li><a href="../../../../tags/">标签云</a></li>
+                        
+                            <li><a href="../../../../about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:fengfanbupt@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/fengfanlbc" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于后台与大数据，偶尔喜欢看个电影</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Feng Fan</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="http://odbihfqll.bkt.clouddn.com/u=738958558,2199681430&amp;fm=21&amp;gp=0.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Feng Fan</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">we only live once</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="../../../../index.html">主页</a></li>
+                
+                    <li><a href="../../../../archives/">所有文章</a></li>
+                
+                    <li><a href="../../../../tags/">标签云</a></li>
+                
+                    <li><a href="../../../../about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:fengfanbupt@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/fengfanlbc" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-CDH5-9-2-Ubuntu14-04-安装部署" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="" class="article-date">
+      <time datetime="2017-05-19T08:26:40.000Z" itemprop="datePublished">2017-05-19</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CDH5.9.2 Ubuntu14.04 安装部署
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/大数据/">大数据</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <center><br><br><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh01.png" alt="C470F8AD-6B65-4B52-9428-13E426E5C166"><br><br></center>
+
+<p>因为毕设需要用到 Hadoop 生态环境中的很多组件，一个个安装和维护十分不方便，并且没有直观的页面显示，所以采用 Cloudera 公司的 CDH（Cloudera’s Distribution Including Apache Hadoop），这是中国绝大部分公司使用的。</p>
+<a id="more"></a>
+<p>这篇文章主要介绍 CDH 在 Ubuntu 下的安装与部署。刚开始采用的是在线安装的方式，到最后下载 Parcels 的时候实在是太慢，如果以后要添加节点必然也是十分耗时的，所以换成了离线安装方式，即把所需的包事先下载好，然后执行操作指令即可。这里所需要的资源有一下5个：</p>
+<ul>
+<li>CDH-5.9.2-1.cdh5.9.2.p0.3-trusty.parcel</li>
+<li>CDH-5.9.2-1.cdh5.9.2.p0.3-trusty.parcel.sha1</li>
+<li>manifest.json</li>
+<li>cloudera-manager-trusty-cm5.9.2_amd64.tar.gz</li>
+<li>jdk-8u121-linux-x64.tar.gz</li>
+</ul>
+<p>也可以自行参考官方文档下载，也可以用文末提供的下载链接，用百度云下载（因为从官网下 cm 的时候是异常的慢，我是通过在学校走 IPV6下载的）。</p>
+<p>资源准备好后就开始主机的配置了，我这里搭建的是一个很小的集群，一台 master三台 slave（slave01，slave02，slave03）配置如下：</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Memory</th>
+<th>CPU</th>
+<th>Store</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Master</td>
+<td>16G</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Slave01</td>
+<td>4G</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Slave02</td>
+<td>8G</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Slave03</td>
+<td>8G</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>这里假设已经初步安装好了 Ubuntu14.04（不要安16.04，至少写这篇文章的时候是CDH 是不支持16.04的）</p>
+<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><p>第一步，进行更新:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
+<p>如果出现 Hash 校验不符的错误，则需要进行软件源的更新</p>
+<p>首先点击左侧任务栏的【系统设置】（齿轮图标），选择【软件和更新】</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh02.png" alt="184E9236-B312-43FF-A214-60E9FFD59AE3"></p>
+<p>点击 “下载自” 右侧的方框，选择【其他节点】</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh03.png" alt="AF0FC531-AFD3-41C7-8A68-9FEF39A3F3DF"></p>
+<p>在列表中选中【mirrors.aliyun.com】，并点击右下角的【选择服务器】，会要求输入用户密码，输入即可。</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh04.png" alt="7A6A89AF-099F-4F70-8B7F-6E2E03F28229"></p>
+<p>接着点击关闭</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh05.png" alt="D7349E2A-1AF4-4D24-85DA-D943EC87A290"></p>
+<p>此时会提示列表信息过时，点击【重新载入】</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh06.png" alt="38DF8A4C-E352-44C9-8766-0BA5AF5D1521"></p>
+<p>最后耐心等待更新缓存即可。更新完成会自动关闭【软件和更新】这个窗口。如果还是提示错误，请选择其他服务器节点如<em><a href="http://mirrors.163.com" target="_blank" rel="external">http://mirrors.163.com</a></em> 再次进行尝试。更新成功后，再次执行 <strong>sudo apt-get update </strong>就正常了。</p>
+<p>（由于我比较懒，所以没有自己截图了，以上很多图片和后面的很多图片均参考自其它博客）</p>
+<p>更新后安装 vim，sudo apt-get自带的 vi 我操作起来实在是心累。</p>
+<p>首先为了避免踩后面的各种坑以及为了部署方便，全程使用 root 权限，所以首先启用 root 用户并设置 root 密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo passwd root</div></pre></td></tr></table></figure>
+<p>然后设置每台机器的 IP 地址，使用固定 IP，所有主机在同一个网段内，再将每台机器改名使用 <strong>vim /etc/hostname</strong> 指令，我这里用的是 master 和 slave 来区分主节点和从节点。</p>
+<p>然后添加主机名到 IP 的映射，使用 vim /etc/hosts指令，以下是master的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">127.0.0.1localhost</div><div class="line">#127.0.1.1master</div><div class="line">192.168.8.80master</div><div class="line">192.168.8.76slave01</div><div class="line">192.168.8.77slave02</div><div class="line">192.168.8.78slave03</div><div class="line"># The following lines are desirable for IPv6 capable hosts</div><div class="line">::1     ip6-localhost ip6-loopback</div><div class="line">fe00::0 ip6-localnet</div><div class="line">ff00::0 ip6-mcastprefix</div><div class="line">ff02::1 ip6-allnodes</div><div class="line">ff02::2 ip6-allrouters</div></pre></td></tr></table></figure>
+<p>为了避免访问上的限制，关闭防火墙，使用指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ufw disable</div></pre></td></tr></table></figure>
+<p>后面要进行时间同步，这里将每一台机器统一时区：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</div></pre></td></tr></table></figure>
+<p>以上设置完后重启一下。</p>
+<p>安装 SSH 并设置免密登入，每个节点用<strong>sudo apt-get install openssh-server</strong>指令安装 SSH。使用 <strong>ssh localhost</strong> 测试是否可以登入。用<strong>ssh-keygen -t rsa</strong>产生密钥对。将每个节点（包括master和slave）上的公钥复制到master节点，执行如下命令，输入master登录密码，完成复制：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-copy-id -i ~/.ssh/id_rsa.pub master</div></pre></td></tr></table></figure>
+<p>把master节点的authorized_keys发送到所有slave节点，在master节点执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">scp ~/.ssh/authorized_keys root@slave01:/root/.ssh/</div><div class="line">scp ~/.ssh/authorized_keys root@slave02:/root/.ssh/</div><div class="line">scp ~/.ssh/authorized_keys root@slave03:/root/.ssh/</div></pre></td></tr></table></figure>
+<p>在所有节点上修改ssh配置文件使root用户也能免密码登入，修改配置文件sudo vi /etc/ssh/sshd_config：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># Authentication:LoginGraceTime 120</div><div class="line">#PermitRootLogin without-password</div><div class="line">PermitRootLogin yes</div><div class="line">StrictModes yes</div></pre></td></tr></table></figure>
+<p>使用 ssh 登入各个节点测试看是否可以免密。</p>
+<h3 id="配置-JDK"><a href="#配置-JDK" class="headerlink" title="配置 JDK"></a>配置 JDK</h3><p>我将下好的 JDK 放在了/home/hadoop/share/java目录，这里可以自己指定，然后修改/etc/profife 文件，添加环境变量，这个自行google，以下是我添加的，最后不要忘记 source /etc/profile。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/home/hadoop/share/java/jdk1.8.0_121</div><div class="line">export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib:$CLASSPATH</div><div class="line">export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH</div></pre></td></tr></table></figure>
+<h3 id="安装时间同步工具-ntp"><a href="#安装时间同步工具-ntp" class="headerlink" title="安装时间同步工具 ntp"></a>安装时间同步工具 ntp</h3><p>hadoop 集群对时间同步要求是很高的，所以需要在每台机器上安装 ntp，使 master 与标准时间服务器校准同步，slave 与 master 同步。</p>
+<p>使用以下指令安装 ntp：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install ntp</div></pre></td></tr></table></figure>
+<p>然后修改配置文件/etc/ntp.conf,以下是我的 master 的配置文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"># /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help</div><div class="line">driftfile /var/lib/ntp/ntp.drift</div><div class="line"># Enable this if you want statistics to be logged.</div><div class="line">statsdir /var/log/ntpstats/</div><div class="line">statistics loopstats peerstats clockstats</div><div class="line">filegen loopstats file loopstats type day enable</div><div class="line">filegen peerstats file peerstats type day enable</div><div class="line">filegen clockstats file clockstats type day enable</div><div class="line"># Specify one or more NTP servers.</div><div class="line"># Use servers from the NTP Pool Project. Approved by Ubuntu Technical Board</div><div class="line"># on 2011-02-08 (LP: #104525). See http://www.pool.ntp.org/join.html for</div><div class="line"># more information.</div><div class="line">#server 0.ubuntu.pool.ntp.org</div><div class="line">#server 1.ubuntu.pool.ntp.org</div><div class="line">#server 2.ubuntu.pool.ntp.org</div><div class="line">#server 3.ubuntu.pool.ntp.org</div><div class="line"># Use Ubuntu&apos;s ntp server as a fallback.</div><div class="line">#server ntp.ubuntu.com</div><div class="line">#上层ntp server</div><div class="line">server 2.cn.pool.ntp.org prefer</div><div class="line">server 0.asia.pool.ntp.org prefer</div><div class="line">server 3.asia.pool.ntp.org prefer</div><div class="line"># Access control configuration; see /usr/share/doc/ntp-doc/html/accopt.html for</div><div class="line"># details.  The web page &lt;http://support.ntp.org/bin/view/Support/AccessRestrictions&gt;</div><div class="line"># might also be helpful.</div><div class="line">#</div><div class="line"># Note that &quot;restrict&quot; applies to both servers and clients, so a configuration</div><div class="line"># that might be intended to block requests from certain clients could also end</div><div class="line"># up blocking replies from your own upstream servers.</div><div class="line">#让NTP Server和其自身保持同步，如果在/etc/ntp.conf中定义的server都不可用时，将使</div><div class="line">用local时间作为ntp服务提供给ntp客户端</div><div class="line">server 127.127.1.0</div><div class="line">fudge 127.127.1.0 stratum 5</div><div class="line"># By default, exchange time with everybody, but don&apos;t allow configuration.</div><div class="line">restrict -4 default kod notrap nomodifiy nopeer noquery</div><div class="line">restrict -6 default kod notrap nomodify nopeer no query</div><div class="line">#允许内网网段的对时请求</div><div class="line">restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap</div><div class="line"># Local users may interrogate the ntp server more closely.</div><div class="line">restrict 127.0.0.1</div><div class="line">restrict ::1</div><div class="line"># Clients from this (example!) subnet have unlimited access, but only if</div><div class="line"># cryptographically authenticated.</div><div class="line">#restrict 192.168.123.0 mask 255.255.255.0 notrust</div></pre></td></tr></table></figure>
+<p>slave在 文件中添加server master prefer就好了 。</p>
+<p>最后使用 service ntp restart 重新启动服务，使用 update-rc.d ntp defaults指令设置开机启动，用ntpdate -u master 强制 slave 与主机同步，执行hwclock –systohc，把系统时间同步到硬件BIOS。如果有兴趣的话可以了解下 ntp 设置。</p>
+<h3 id="安装-MySql-并配置"><a href="#安装-MySql-并配置" class="headerlink" title="安装 MySql 并配置"></a>安装 MySql 并配置</h3><p>使用apt-get install mysql-server指令安装 Mysql，先将 Mysql 关闭：service mysql stop。</p>
+<p>根据官方文档进行配置，首先移除旧的日志文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mv /var/lib/mysql/ib_logfile0 backup_location #备份位置</div><div class="line">mv /var/lib/mysql/ib_logfile1 backup_location</div></pre></td></tr></table></figure>
+<p>新建文件sudo vi /etc/mysql/conf.d/cloudera.cnf，这个配置文件是原有配置文件/etc/mysql/my.cnf的扩展，会将 my.cnf文件的内容覆盖。参照官方文档的建议，配置文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">transaction-isolation = READ-COMMITTED</div><div class="line"># Disabling symbolic-links is recommended to prevent assorted security risks;</div><div class="line"># to do so, uncomment this line:</div><div class="line"># symbolic-links = 0</div><div class="line"></div><div class="line">key_buffer_size = 32M</div><div class="line">max_allowed_packet = 32M</div><div class="line">thread_stack = 256K</div><div class="line">thread_cache_size = 64</div><div class="line">query_cache_limit = 8M</div><div class="line">query_cache_size = 64M</div><div class="line">query_cache_type = 1</div><div class="line"></div><div class="line">max_connections = 550</div><div class="line">#expire_logs_days = 10</div><div class="line">#max_binlog_size = 100M</div><div class="line"></div><div class="line">#log_bin should be on a disk with enough free space. Replace &apos;/var/lib/mysql/mysql_binary_log&apos; with an appropriate path for your system</div><div class="line">#and chown the specified folder to the mysql user.</div><div class="line">log_bin=/var/lib/mysql/mysql_binary_log</div><div class="line"></div><div class="line"># For MySQL version 5.1.8 or later. For older versions, reference MySQL documentation for configuration help.</div><div class="line">binlog_format = mixed</div><div class="line"></div><div class="line">read_buffer_size = 2M</div><div class="line">read_rnd_buffer_size = 16M</div><div class="line">sort_buffer_size = 8M</div><div class="line">join_buffer_size = 8M</div><div class="line"></div><div class="line"># InnoDB settings</div><div class="line">innodb_file_per_table = 1</div><div class="line">innodb_flush_log_at_trx_commit  = 2</div><div class="line">innodb_log_buffer_size = 64M</div><div class="line">innodb_buffer_pool_size = 4G</div><div class="line">innodb_thread_concurrency = 8</div><div class="line">innodb_flush_method = O_DIRECT</div><div class="line">innodb_log_file_size = 512M</div><div class="line"></div><div class="line">[mysqld_safe]</div><div class="line">log-error=/var/log/mysqld.log</div><div class="line">pid-file=/var/run/mysqld/mysqld.pid</div><div class="line"></div><div class="line">sql_mode=STRICT_ALL_TABLES</div></pre></td></tr></table></figure>
+<p>这里还要记得将 my.cnf中的 bindaddress=127.0.0.1给注释，否则无法远程访问 Mysql，安装 CDH的时候会无法访问数据库。</p>
+<p>配置完后重启数据库：service mysql restart情况。有可能会遇到添加配置文件后 Mysql 重新启动失败的情况，我是换了一台配置较高的机器成功的。</p>
+<p>Mysql 配置好后，要创建 CDH 各个组件需要用到的数据库，直接在 Mysql 中运行如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">create database amon DEFAULT CHARACTER SET utf8;</div><div class="line">grant all on amon.* TO &apos;amon&apos;@&apos;%&apos; IDENTIFIED BY &apos;amon_password&apos;;</div><div class="line">grant all on amon.* TO &apos;amon&apos;@&apos;CDH&apos; IDENTIFIED BY &apos;amon_password&apos;;</div><div class="line">create database smon DEFAULT CHARACTER SET utf8;</div><div class="line">grant all on smon.* TO &apos;smon&apos;@&apos;%&apos; IDENTIFIED BY &apos;smon_password&apos;;</div><div class="line">grant all on smon.* TO &apos;smon&apos;@&apos;CDH&apos; IDENTIFIED BY &apos;smon_password&apos;;</div><div class="line">create database rman DEFAULT CHARACTER SET utf8;</div><div class="line">grant all on rman.* TO &apos;rman&apos;@&apos;%&apos; IDENTIFIED BY &apos;rman_password&apos;;</div><div class="line">grant all on rman.* TO &apos;rman&apos;@&apos;CDH&apos; IDENTIFIED BY &apos;rman_password&apos;;</div><div class="line">create database hmon DEFAULT CHARACTER SET utf8;</div><div class="line">grant all on hmon.* TO &apos;hmon&apos;@&apos;%&apos; IDENTIFIED BY &apos;hmon_password&apos;;</div><div class="line">grant all on hmon.* TO &apos;hmon&apos;@&apos;CDH&apos; IDENTIFIED BY &apos;hmon_password&apos;;</div><div class="line">create database hive DEFAULT CHARACTER SET utf8;</div><div class="line">grant all on hive.* TO &apos;hive&apos;@&apos;%&apos; IDENTIFIED BY &apos;hive_password&apos;;</div><div class="line">grant all on hive.* TO &apos;hive&apos;@&apos;CDH&apos; IDENTIFIED BY &apos;hive_password&apos;;</div><div class="line">create database oozie DEFAULT CHARACTER SET utf8;</div><div class="line">grant all on oozie.* TO &apos;oozie&apos;@&apos;%&apos; IDENTIFIED BY &apos;oozie_password&apos;;</div><div class="line">grant all on oozie.* TO &apos;oozie&apos;@&apos;CDH&apos; IDENTIFIED BY &apos;oozie_password&apos;;</div><div class="line">create database metastore DEFAULT CHARACTER SET utf8;</div><div class="line">grant all on metastore.* TO &apos;hive&apos;@&apos;%&apos; IDENTIFIED BY &apos;hive_password&apos;;</div><div class="line">grant all on metastore.* TO &apos;hive&apos;@&apos;CDH&apos; IDENTIFIED BY &apos;hive_password&apos;;</div><div class="line">create database hue DEFAULT CHARACTER SET utf8;</div><div class="line">grant all on hue.* TO &apos;hue&apos;@&apos;%&apos; IDENTIFIED BY &apos;hue_password&apos;;</div><div class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;hadoop&apos; WITH GRANT OPTION;</div></pre></td></tr></table></figure>
+<p>最后安装 Mysql JDBC 驱动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install libmysql-java</div></pre></td></tr></table></figure>
+<p>后面会对 CDH 所使用的数据库进行设置。</p>
+<h3 id="安装-Cloudera-Manager-Server-和-Cloudera-Manager-Agent"><a href="#安装-Cloudera-Manager-Server-和-Cloudera-Manager-Agent" class="headerlink" title="安装 Cloudera Manager Server 和 Cloudera Manager Agent"></a>安装 Cloudera Manager Server 和 Cloudera Manager Agent</h3><p>首先在主节点创建目录：mkdir /opt/cloudera-manager</p>
+<p>然后将我们之前下好的cloudera-manager-trusty-cm5.9.2_amd64.tar.gz解压到/opt/cloudera-manager</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -xzvf cloudera-manager-trusty-cm5.9.2_amd64.tar.gz -C /opt/cloudera-manager</div></pre></td></tr></table></figure>
+<p>创建cloudera-scm用户（所有节点）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd --system --home=/opt/cloudera-manager/cm-5.9.2/run/cloudera-scm-server --no-create-home --shell=/bin/false --comment &quot;Cloudera SCM User&quot; cloudera-scm</div></pre></td></tr></table></figure>
+<p>然后创建cloudera manager server的本地数据存储目录(主)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo mkdir /var/log/cloudera-scm-server</div><div class="line">sudo chown cloudera-scm:cloudera-scm /var/log/cloudera-scm-server</div></pre></td></tr></table></figure>
+<p>在每个Cloudera Manager Agent 节点配置server_host(主从都要)，vim /opt/cloudera-manager/cm-5.6.0/etc/cloudera-scm-agent/config.ini </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//把server_host改成主节点名称</div><div class="line">server_host= master</div></pre></td></tr></table></figure>
+<p>将cloudera-manager发送到各从节点对应的目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp -r /opt/cloudera-manager root@hadoop-2:/opt</div></pre></td></tr></table></figure>
+<p>创建 Parcels 目录,首先在主节点创建安装包所在目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir -p /opt/cloudera/parcel-repo</div><div class="line">chown cloudera-scm:cloudera-scm /opt/cloudera/parcel-repo</div></pre></td></tr></table></figure>
+<p>将CHD5相关的Parcel包放到主节点的/opt/cloudera/parcel-repo/目录中：</p>
+<ul>
+<li>CDH-5.9.2-1.cdh5.9.2.p0.3-trusty.parcel</li>
+<li>CDH-5.9.2-1.cdh5.9.2.p0.3-trusty.parcel.sha1</li>
+<li>manifest.json</li>
+</ul>
+<p>最后将CDH-5.9.2-1.cdh5.9.2.p0.3-trusty.parcel.sha1，重命名为CDH-5.9.2-1.cdh5.9.2.p0.3-trusty.parcel.sha，这点必须注意，否则，系统会重新下载CDH-5.9.2-1.cdh5.9.2.p0.3-trusty.parcel.sha1文件。</p>
+<p>再在从节点创建 Parcels 目录:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir -p /opt/cloudera/parcels</div><div class="line">chown cloudera-scm:cloudera-scm /opt/cloudera/parcels</div></pre></td></tr></table></figure>
+<p>Clouder-Manage会从主节点的/opt/cloudera/parcel-repo目录中抽取出来，分发解压激活到各个节点的/opt/cloudera/parcels目录中。</p>
+<p>使用初始脚本配置数据库scm_prepare_database.sh（主节点）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/opt/cloudera manager/cm5.9.2/share/cmf/schema/scm_prepare_database.sh mysql -hmaster -uroot -proot --scm-host master scmdbn scmdbu scmdbp</div></pre></td></tr></table></figure>
+<p>这个脚本就是用来创建和配置CMS需要的数据库的脚本。各参数是指：</p>
+<ul>
+<li>mysql：数据库用的是mysql，如果安装过程中用的oracle，那么该参数就应该改为oracle。</li>
+<li>-uroot：root身份运行mysql。-proot：mysql的root密码是root。</li>
+<li>–scm-host localhost ：CMS的主机，一般是和mysql安装的主机是在同一个主机上。</li>
+<li>最后三个参数是：数据库名，数据库用户名，数据库密码。</li>
+</ul>
+<p>下载相关的依赖（这个我是参考其它博客，我认为 CDH 应该会自己下载，但是可能会很慢？）:</p>
+<ul>
+<li>apt-get install lsb-base</li>
+<li>apt-get install psmisc</li>
+<li>apt-get install bash</li>
+<li>apt-get install libsasl2-modules</li>
+<li>apt-get install libsasl2-modules-gssapi-mit</li>
+<li>apt-get install zlib1g</li>
+<li>apt-get install libxslt1.1</li>
+<li>apt-get install libsqlite3-0</li>
+<li>apt-get install libfuse2</li>
+<li>apt-get install fuse</li>
+<li>apt-get install rpcbind</li>
+</ul>
+<p>到这里我们可以启动 server 和 agent在网页端进行进一步配置了。在主节点使用指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/opt/cloudera-manager/cm-5.9.2/etc/init.d/cloudera-scm-server start</div><div class="line">/opt/cloudera-manager/cm-5.9.2/etc/init.d/cloudera-scm-agent start</div></pre></td></tr></table></figure>
+<p>从节点使用指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/opt/cloudera-manager/cm-5.9.2/etc/init.d/cloudera-scm-agent start</div></pre></td></tr></table></figure>
+<p>然后访问Cloudera Manager Admin Console，我这里是192.168.8.80:7180,初始帐号和密码都是 admin。</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh07.png" alt="AA465FB4-C743-4595-90B8-E98C973CD2C7"></p>
+<p>登入后在第一个页面选择免费版</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh08.png" alt="9B3ACBA0-70D7-440E-880D-3AD47D0C98F7"></p>
+<p>然后是指定主机，这里可能会出现在当前管理的主机中找不到所有主机的情况，可以用在新主机项里添加，还有可能出现主机受管的情况，这里就要做修改了，我是这么做的，首先在各节点执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf /opt/cloudera-manager/cm-5.9.2/lib/cloudera-scm-agent/*</div></pre></td></tr></table></figure>
+<p>然后删除 scm 数据库:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop database scmdbn;</div></pre></td></tr></table></figure>
+<p>再重新建立该数据库（上面已说明）</p>
+<p>再重新打开网页应该就可以找到所有主机了。<img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh09.png" alt="D478B991-2B5E-49AF-B751-AA344AC32B23"></p>
+<p>然后是选择parcels 包安装方式并安装所有的服务：</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh10.png" alt="EAD75347-8C7F-4BBF-AC53-91028DE22716"></p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh11.png" alt="7C3A30BC-47B1-4EFB-B29A-81A736115CFA"></p>
+<p>后面的集群创建使用默认值：</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh12.png" alt="FA696AF5-0E62-4BCD-9099-9972121470DC"></p>
+<p>之后是数据库配置：<img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh13.png" alt="496B3C38-9F11-4173-A0FD-72605B7640F2"></p>
+<p>如果在这里帐号密码都输入对的情况下检测不到数据库，很有可能是没有注释掉 my.cnf 里的 bindAddress。</p>
+<p>后面的页面仍然采用默认值。</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh14.png" alt="8527D771-8FBF-4373-B1F5-1579D6F2CFBC"></p>
+<p>然后便进入等待安装的页面了：</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh15.png" alt="8C02CEFA-530B-4FDC-9D5E-2B00D75865E0"></p>
+<p>这里可能会出现cloudera manager在部署最后的spark时报”客户端配置 (id=3) 已使用 1 退出,而预期值为 0”这个错误，我们可以查看日志文件，这一般是JAVA 环境变量的问题，因为有些软件不会去找环境变量的java，而是找/usr/java下的，我感觉这是 CDH 的一个 bug，所以这里可以使用软链接的方式，先创建/usr/java 目录，然后添加软连接到/usr/java/default，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln -s /usr/local/java/jdk  /usr/java/default。</div></pre></td></tr></table></figure>
+<p>安装成功后，我们就可以看到如下视图了：<img src="http://odbihfqll.bkt.clouddn.com/image/study/cdhcdh16.png" alt="408D11AC-0572-4D84-91BB-7E29D5D3F53E"></p>
+<p>这里在每一个服务的边上都会有红色黄色或者绿色的圆圈，理想情况应该都是绿色，但是难免会出现各种问题，这里简单说下常见的，出现很多红色，一般是没有实现集群内主节点和从节点同步，重新设置下就好，出现黄色一般提示是网络接口未全速运行，这里可以查看下自己主机的当前带宽</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ethtool eth0</div></pre></td></tr></table></figure>
+<p>看看是不是千兆网，如果不是用如下命令设置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ethtool -s eth0 autoneg off speed 1000 duplex full</div></pre></td></tr></table></figure>
+<p>但是可能不成功，有可能使用的交互机或者路由器不是千兆的。</p>
+<p>至此基本的集群搭建好了。可以运行一个 mapreduce 任务看下效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo -u hdfs hadoop jar \/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar \pi 10 100</div></pre></td></tr></table></figure>
+<p>然后我们在终端启动下各个服务看看效果，比如 hive，spark这里可能会报AccessControlException: Permission denied: user=root, access=WRITE, inode=”/user”:hdfs:supergroup:drwxr-xr-x错误。</p>
+<p>这是因为root去访问hdfs上面的/user目录没有权限。所以最后，我在主节点上面先使用命令 su hdfs切换到hdfs用户，然后通过Hadoop fs -chmod 777 /user 来进行授权。</p>
+<p>运行 Spark-shell 还可能会报：Required executor memory (1024+384 MB) is above the max threshold (1057 MB) of this cluster! Please check the values of ‘yarn.scheduler.maximum-allocation-mb’ and/or ‘yarn.nodemanager.resource.memory-mb’.错误。</p>
+<p>如果没有 CDH 的话我们可能就要自己去找配置文件，然后改了，这里直接在网页端操作就好了：在 yarn 管理页面找到相应的两个文件然后修改，将executor memory改大，然后就可以打开了。</p>
+<p>这里还要说明下我犯的一个低级错误，远程访问 CDH，在 CDH内打开各个服务的 webui 时直接访问是打不开的，因为它是根据主机名而不是 IP 去访问的，而我们所使用的笔记本上可能没有映射，自然就访问不到了，所以最好是将主机名改为 IP 就好了。</p>
+<p>参考文章：</p>
+<p><a href="http://blog.csdn.net/u012348345/article/details/51451455" target="_blank" rel="external">http://blog.csdn.net/u012348345/article/details/51451455</a></p>
+<p><a href="https://www.zybuluo.com/ncepuwanghui/note/474966" target="_blank" rel="external">https://www.zybuluo.com/ncepuwanghui/note/474966</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/25841893" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/25841893</a></p>
+<p><a href="http://www.powerxing.com/install-hadoop/" target="_blank" rel="external">http://www.powerxing.com/install-hadoop/</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="../../20/步履不停/">
+                    步履不停
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../../13/重庆森林/">
+                     重庆森林
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本配置"><span class="toc-number">1.</span> <span class="toc-text">基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-JDK"><span class="toc-number">2.</span> <span class="toc-text">配置 JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装时间同步工具-ntp"><span class="toc-number">3.</span> <span class="toc-text">安装时间同步工具 ntp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-MySql-并配置"><span class="toc-number">4.</span> <span class="toc-text">安装 MySql 并配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-Cloudera-Manager-Server-和-Cloudera-Manager-Agent"><span class="toc-number">5.</span> <span class="toc-text">安装 Cloudera Manager Server 和 Cloudera Manager Agent</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="../../20/步履不停/" title="上一篇: 步履不停">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="../../13/重庆森林/" title="下一篇:  重庆森林">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../20/步履不停/">步履不停</a></li><li class="post-list-item"><a class="post-list-link" href="">CDH5.9.2 Ubuntu14.04 安装部署</a></li><li class="post-list-item"><a class="post-list-link" href="../../13/重庆森林/"> 重庆森林</a></li><li class="post-list-item"><a class="post-list-link" href="../../11/mysql-优化/">关于数据库优化的几个深入思考</a></li><li class="post-list-item"><a class="post-list-link" href="../../11/IntelliJ-Maven-Spark-Scala/">IntelliJ-Maven-Spark-Scala</a></li><li class="post-list-item"><a class="post-list-link" href="../../../01/10/在Intellij上搭建spring小项目/">在IntelliJ上搭建spring小项目</a></li><li class="post-list-item"><a class="post-list-link" href="../../../01/09/基因数据分析（一）/">基因数据分析（一）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/12/24/在云服务器上使用tomcat部署jav aweb项目/">在云服务器上使用tomcat部署java web项目</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/12/20/多电脑维护hexo/">多电脑维护hexo</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/09/15/my-first-blog/">利用gitpage和hexo搭建一个个人博客</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 Feng Fan
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
