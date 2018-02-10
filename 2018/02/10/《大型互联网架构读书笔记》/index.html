@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Feng Fan" />
+
+
+
+<meta name="description" content="本书开头通过两个经典实例引入对架构的思考，分别是京东商城的促销活动给后台数据库带来的负载问题，12306春节售票高并发带来的服务器宕机问题。其实这些本质上都是在架构设计上的不足所带来的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《大型互联网架构读书笔记一》">
+<meta property="og:url" content="http://yoursite.com/2018/02/10/《大型互联网架构读书笔记》/index.html">
+<meta property="og:site_name" content="Feng的博客">
+<meta property="og:description" content="本书开头通过两个经典实例引入对架构的思考，分别是京东商城的促销活动给后台数据库带来的负载问题，12306春节售票高并发带来的服务器宕机问题。其实这些本质上都是在架构设计上的不足所带来的问题。">
+<meta property="og:updated_time" content="2018-02-10T15:01:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《大型互联网架构读书笔记一》">
+<meta name="twitter:description" content="本书开头通过两个经典实例引入对架构的思考，分别是京东商城的促销活动给后台数据库带来的负载问题，12306春节售票高并发带来的服务器宕机问题。其实这些本质上都是在架构设计上的不足所带来的问题。">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Feng的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="http://odbihfqll.bkt.clouddn.com/f.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>《大型互联网架构读书笔记一》 | Feng的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="http://odbihfqll.bkt.clouddn.com/u=738958558,2199681430&amp;fm=21&amp;gp=0.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Feng Fan</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">we only live once</p>
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="../../../../index.html">主页</a></li>
+                        
+                            <li><a href="../../../../archives/">所有文章</a></li>
+                        
+                            <li><a href="../../../../tags/">标签云</a></li>
+                        
+                            <li><a href="../../../../about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:fengfanbupt@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/fengfanlbc" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于后台与大数据，偶尔喜欢看个电影</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Feng Fan</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="http://odbihfqll.bkt.clouddn.com/u=738958558,2199681430&amp;fm=21&amp;gp=0.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Feng Fan</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">we only live once</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="../../../../index.html">主页</a></li>
+                
+                    <li><a href="../../../../archives/">所有文章</a></li>
+                
+                    <li><a href="../../../../tags/">标签云</a></li>
+                
+                    <li><a href="../../../../about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:fengfanbupt@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/fengfanlbc" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-《大型互联网架构读书笔记》" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="" class="article-date">
+      <time datetime="2018-02-10T03:10:19.000Z" itemprop="datePublished">2018-02-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      《大型互联网架构读书笔记一》
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/读书笔记/">读书笔记</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>本书开头通过两个经典实例引入对架构的思考，分别是京东商城的促销活动给后台数据库带来的负载问题，12306春节售票高并发带来的服务器宕机问题。其实这些本质上都是在架构设计上的不足所带来的问题。</p>
+<a id="more"></a>
+<p>对于服务器的负载问题，在问题出现的时候，作为非技术出身的boss 刘强东以及马云最先想到的是购入大量机器，但是最后发现即使在机器增加的情况下，也并不能解决实际问题，暂且不说添加机器后所进行的扩容复杂度，单说用户量的瞬间增长往往都会超出我们的预期，所以合理的架构设计才是关键。比如对于京东，电商本来就会面临着高并发的场景，所以在最初设计的时候就应该满足可伸缩性和可扩展性。对于12306的问题，其实这本质上并不是技术上的问题，而是这种准点抢票的模式本身就不对，也就是说这是业务架构的失败，当然现在已经有很大改善了，引入了分阶段售票以及排队售票机制。</p>
+<p>第一章主要讲述互联网架构的一个演变，为了应对当前的互联网潮流，从最初的单台服务器到集群都经过了哪些改进，这是很值得思考的一个问题。</p>
+<h4 id="初始阶段（单机阶段）"><a href="#初始阶段（单机阶段）" class="headerlink" title="初始阶段（单机阶段）"></a>初始阶段（单机阶段）</h4><p>在这个阶段，产品一般都才刚刚起步，所有的大型互联网公司都是从这个阶段起步的，为了快速开发，将应用程序、文件服务、数据库服务集中在一起。比如服务操作系统使用 Linux，应用程序通过 PHP 开发，部署在 Apache 上，数据库使用 MYSQL，这样便可以启动一台服务器了</p>
+<ul>
+<li>优点：快速开发，规模小时易维护</li>
+<li>缺点：存在单点问题，规模大后，维护起来极为困难，产品升级也需要停服</li>
+</ul>
+<h4 id="分层架构"><a href="#分层架构" class="headerlink" title="分层架构"></a>分层架构</h4><p>背景：在这之前写的应用程序大多杂乱无章，没有统一清晰的结构，这样开发和维护效率都很低</p>
+<p>措施：使用分层架构，一般分为前端表现层、应用逻辑层，持久化层，数据库层</p>
+<h4 id="应用与数据分离"><a href="#应用与数据分离" class="headerlink" title="应用与数据分离"></a>应用与数据分离</h4><p>背景：在访问量增加的请况下，用户的请求逻辑处理和数据库访问都在一台机器上，但是不同服务对于机器资源的需求是不同的，应用逻辑需要更快的 CPU，数据库服务需要更大的硬盘和内存，文件服务需要更大的硬盘，所以对于单机要求太高，压力太大。</p>
+<p>措施：将应用程序、数据分离分别放在不同服务器上，减轻压力。</p>
+<ul>
+<li>优点：资源分离，便于维护</li>
+<li>缺点：增加了单点问题发生的概率，网络开销增加</li>
+</ul>
+<h4 id="增加缓存"><a href="#增加缓存" class="headerlink" title="增加缓存"></a>增加缓存</h4><p>背景：在产品越做越好的时候，用户量也随之增加，为了给用户更好的体验，响应速度要进行提升。网站访问特带你和现实生活的财富分配是很相似的，符合二八定律：80%的财富掌握在20%的人手中。80%的访问也集中在20%的内容上，比如在淘宝购买商品，其实80%的用户关注的都是那20%的口碑好需求高的商品，所以如果将这20%的数据放在内存中便可以加快访问速度。</p>
+<p>措施：增加缓存，本质上就是把最近或者最经常访问的数据单独存起来，当用户再次请求时，减少对数据库的访问，实现快速的响应，给用户正确的数据。</p>
+<ul>
+<li>优点：简单有效，减少了对数据库的查询</li>
+<li>缺点：增加了判断逻辑，不适合大对象的存储</li>
+</ul>
+<h4 id="应用服务器集群"><a href="#应用服务器集群" class="headerlink" title="应用服务器集群"></a>应用服务器集群</h4><p>背景：用户量大，必然会带来高并发，海量数据，一台应用服务器已经无法满足需求，对于高可用指标是一个严峻的考验</p>
+<p>措施：建立应用服务器集群，通过负载均衡调度器实现调度，这样当一台服务器出现问题时，整个服务依然可用</p>
+<ul>
+<li>优点：消除了单点问题，性能和可用性都得到了保障</li>
+<li>缺点：要考虑一致性的问题，要考虑 session 和缓存的一致性</li>
+</ul>
+<h4 id="数据库读写分离"><a href="#数据库读写分离" class="headerlink" title="数据库读写分离"></a>数据库读写分离</h4><p>背景：在业务持续增加的情况下，数据库读写会很频繁（大部分读都可以通过缓存实现），数据库会成为系统的瓶颈。</p>
+<p>措施：使用主从热备的方式，主服务器提供写服务，从服务器提供读服务，同时发生变化时，将主数据库内更新至从数据库。</p>
+<ul>
+<li>优点：降低了单台数据库的压力</li>
+<li>缺点：增加了架构的复杂性</li>
+</ul>
+<h4 id="使用反向代理与-CDN"><a href="#使用反向代理与-CDN" class="headerlink" title="使用反向代理与 CDN"></a>使用反向代理与 CDN</h4><p>背景：有研究表明，访问的延迟与用户的流失率成正相关，所以为了留住用户，要想办法在中国这样一个复杂的网络环境下降低访问延迟</p>
+<p>措施（本质上都是利用缓存）：</p>
+<ul>
+<li>CDNContent Delivery Network），简称 CDN，将内容同步缓存在网络提供商的机房（全国的各个边缘节点），用户在请求服务时，可以从最近的网络提供商机房获取数据</li>
+</ul>
+<ul>
+<li>反向代理：缓存在网站的中心机房，当用户请求服务时，首先访问的是反向代理服务器，反向代理服务器缓存着用户请求的资源</li>
+</ul>
+<p>优点：增加了访问速度，减轻了后台服务器的压力</p>
+<p>缺点：增加了成本</p>
+<h4 id="分布式文件系统与分布式数据库系统"><a href="#分布式文件系统与分布式数据库系统" class="headerlink" title="分布式文件系统与分布式数据库系统"></a>分布式文件系统与分布式数据库系统</h4><p>背景：任何一台单一的服务器都无法满足持续增长的业务需求，即使经过读写分离，仍然无法满足需求，QPS,TPS,连接数，I/O 处理能力都有限</p>
+<p>措施:  引入分布式数据库和分布式文件系统，通过业务分库，将不同的业务数据库部署在不同服务器上</p>
+<p>优点：解决数据库瓶颈问题</p>
+<p>缺点：逻辑变得复杂，比如事务实现，数据一致性的保证</p>
+<h4 id="使用-NoSql-和搜索引擎"><a href="#使用-NoSql-和搜索引擎" class="headerlink" title="使用 NoSql 和搜索引擎"></a>使用 NoSql 和搜索引擎</h4><p>背景：随着业务变得复杂，对于数据存储和检索也变得越来越复杂</p>
+<p>措施：使用非关系型数据库 NoSql 和搜索引擎，让应用服务器集群通过统一的数据访问模块去访问数据</p>
+<h4 id="业务拆分-分布式服务"><a href="#业务拆分-分布式服务" class="headerlink" title="业务拆分+分布式服务"></a>业务拆分+分布式服务</h4><p>背景：日益复杂的业务场景，系统的复杂度增加</p>
+<p>措施：将整个网站业务分成不同的产品线，每个产品线对应独立的应用，独立部署，对于公用模块单独提取出来，独立部署，不同应用之间通过超链接简历联系或者使用消息队列</p>
+<p>优点：实现解耦，异步，提高吞吐量</p>
+<p>缺点：架构的复杂度增加</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../hexo-review/">
+                    Hexo Review
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#初始阶段（单机阶段）"><span class="toc-number">1.</span> <span class="toc-text">初始阶段（单机阶段）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分层架构"><span class="toc-number">2.</span> <span class="toc-text">分层架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#应用与数据分离"><span class="toc-number">3.</span> <span class="toc-text">应用与数据分离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增加缓存"><span class="toc-number">4.</span> <span class="toc-text">增加缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#应用服务器集群"><span class="toc-number">5.</span> <span class="toc-text">应用服务器集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库读写分离"><span class="toc-number">6.</span> <span class="toc-text">数据库读写分离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用反向代理与-CDN"><span class="toc-number">7.</span> <span class="toc-text">使用反向代理与 CDN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分布式文件系统与分布式数据库系统"><span class="toc-number">8.</span> <span class="toc-text">分布式文件系统与分布式数据库系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用-NoSql-和搜索引擎"><span class="toc-number">9.</span> <span class="toc-text">使用 NoSql 和搜索引擎</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#业务拆分-分布式服务"><span class="toc-number">10.</span> <span class="toc-text">业务拆分+分布式服务</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="../hexo-review/" title="Next: Hexo Review">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="">《大型互联网架构读书笔记一》</a></li><li class="post-list-item"><a class="post-list-link" href="../hexo-review/">Hexo Review</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2017/05/20/步履不停/">步履不停</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2017/05/19/CDH5-9-2-Ubuntu14-04-安装部署/">CDH5.9.2 Ubuntu14.04 安装部署</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2017/05/13/重庆森林/"> 重庆森林</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2017/05/11/mysql-优化/">关于数据库优化的几个深入思考</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2017/05/11/IntelliJ-Maven-Spark-Scala/">IntelliJ-Maven-Spark-Scala</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2017/01/10/在Intellij上搭建spring小项目/">在IntelliJ上搭建spring小项目</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2017/01/09/基因数据分析（一）/">基因数据分析（一）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/12/24/在云服务器上使用tomcat部署jav aweb项目/">在云服务器上使用tomcat部署java web项目</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/12/20/多电脑维护hexo/">多电脑维护hexo</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2016/09/15/my-first-blog/">利用gitpage和hexo搭建一个个人博客</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 Feng Fan
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
