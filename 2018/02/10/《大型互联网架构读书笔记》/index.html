@@ -21,10 +21,17 @@
 <meta property="og:url" content="http://yoursite.com/2018/02/10/《大型互联网架构读书笔记》/index.html">
 <meta property="og:site_name" content="Feng的博客">
 <meta property="og:description" content="本书开头通过两个经典实例引入对架构的思考，分别是京东商城的促销活动给后台数据库带来的负载问题，12306春节售票高并发带来的服务器宕机问题。其实这些本质上都是在架构设计上的不足所带来的问题。">
-<meta property="og:updated_time" content="2018-02-10T15:01:37.000Z">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/1.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/3.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/4.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/5.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/6.png">
+<meta property="og:image" content="http://odbihfqll.bkt.clouddn.com/7.png">
+<meta property="og:updated_time" content="2018-02-11T02:27:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《大型互联网架构读书笔记一》">
 <meta name="twitter:description" content="本书开头通过两个经典实例引入对架构的思考，分别是京东商城的促销活动给后台数据库带来的负载问题，12306春节售票高并发带来的服务器宕机问题。其实这些本质上都是在架构设计上的不足所带来的问题。">
+<meta name="twitter:image" content="http://odbihfqll.bkt.clouddn.com/1.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -255,6 +262,7 @@
 <p>对于服务器的负载问题，在问题出现的时候，作为非技术出身的boss 刘强东以及马云最先想到的是购入大量机器，但是最后发现即使在机器增加的情况下，也并不能解决实际问题，暂且不说添加机器后所进行的扩容复杂度，单说用户量的瞬间增长往往都会超出我们的预期，所以合理的架构设计才是关键。比如对于京东，电商本来就会面临着高并发的场景，所以在最初设计的时候就应该满足可伸缩性和可扩展性。对于12306的问题，其实这本质上并不是技术上的问题，而是这种准点抢票的模式本身就不对，也就是说这是业务架构的失败，当然现在已经有很大改善了，引入了分阶段售票以及排队售票机制。</p>
 <p>第一章主要讲述互联网架构的一个演变，为了应对当前的互联网潮流，从最初的单台服务器到集群都经过了哪些改进，这是很值得思考的一个问题。</p>
 <h4 id="初始阶段（单机阶段）"><a href="#初始阶段（单机阶段）" class="headerlink" title="初始阶段（单机阶段）"></a>初始阶段（单机阶段）</h4><p>在这个阶段，产品一般都才刚刚起步，所有的大型互联网公司都是从这个阶段起步的，为了快速开发，将应用程序、文件服务、数据库服务集中在一起。比如服务操作系统使用 Linux，应用程序通过 PHP 开发，部署在 Apache 上，数据库使用 MYSQL，这样便可以启动一台服务器了</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/1.png" alt="单机阶段"></p>
 <ul>
 <li>优点：快速开发，规模小时易维护</li>
 <li>缺点：存在单点问题，规模大后，维护起来极为困难，产品升级也需要停服</li>
@@ -263,24 +271,28 @@
 <p>措施：使用分层架构，一般分为前端表现层、应用逻辑层，持久化层，数据库层</p>
 <h4 id="应用与数据分离"><a href="#应用与数据分离" class="headerlink" title="应用与数据分离"></a>应用与数据分离</h4><p>背景：在访问量增加的请况下，用户的请求逻辑处理和数据库访问都在一台机器上，但是不同服务对于机器资源的需求是不同的，应用逻辑需要更快的 CPU，数据库服务需要更大的硬盘和内存，文件服务需要更大的硬盘，所以对于单机要求太高，压力太大。</p>
 <p>措施：将应用程序、数据分离分别放在不同服务器上，减轻压力。</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/3.png" alt=""></p>
 <ul>
 <li>优点：资源分离，便于维护</li>
 <li>缺点：增加了单点问题发生的概率，网络开销增加</li>
 </ul>
 <h4 id="增加缓存"><a href="#增加缓存" class="headerlink" title="增加缓存"></a>增加缓存</h4><p>背景：在产品越做越好的时候，用户量也随之增加，为了给用户更好的体验，响应速度要进行提升。网站访问特带你和现实生活的财富分配是很相似的，符合二八定律：80%的财富掌握在20%的人手中。80%的访问也集中在20%的内容上，比如在淘宝购买商品，其实80%的用户关注的都是那20%的口碑好需求高的商品，所以如果将这20%的数据放在内存中便可以加快访问速度。</p>
 <p>措施：增加缓存，本质上就是把最近或者最经常访问的数据单独存起来，当用户再次请求时，减少对数据库的访问，实现快速的响应，给用户正确的数据。</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/4.png" alt=""></p>
 <ul>
 <li>优点：简单有效，减少了对数据库的查询</li>
 <li>缺点：增加了判断逻辑，不适合大对象的存储</li>
 </ul>
 <h4 id="应用服务器集群"><a href="#应用服务器集群" class="headerlink" title="应用服务器集群"></a>应用服务器集群</h4><p>背景：用户量大，必然会带来高并发，海量数据，一台应用服务器已经无法满足需求，对于高可用指标是一个严峻的考验</p>
 <p>措施：建立应用服务器集群，通过负载均衡调度器实现调度，这样当一台服务器出现问题时，整个服务依然可用</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/5.png" alt=""></p>
 <ul>
 <li>优点：消除了单点问题，性能和可用性都得到了保障</li>
 <li>缺点：要考虑一致性的问题，要考虑 session 和缓存的一致性</li>
 </ul>
 <h4 id="数据库读写分离"><a href="#数据库读写分离" class="headerlink" title="数据库读写分离"></a>数据库读写分离</h4><p>背景：在业务持续增加的情况下，数据库读写会很频繁（大部分读都可以通过缓存实现），数据库会成为系统的瓶颈。</p>
 <p>措施：使用主从热备的方式，主服务器提供写服务，从服务器提供读服务，同时发生变化时，将主数据库内更新至从数据库。</p>
+<p><img src="http://odbihfqll.bkt.clouddn.com/6.png" alt=""></p>
 <ul>
 <li>优点：降低了单台数据库的压力</li>
 <li>缺点：增加了架构的复杂性</li>
@@ -293,6 +305,7 @@
 <ul>
 <li>反向代理：缓存在网站的中心机房，当用户请求服务时，首先访问的是反向代理服务器，反向代理服务器缓存着用户请求的资源</li>
 </ul>
+<p><img src="http://odbihfqll.bkt.clouddn.com/7.png" alt=""></p>
 <p>优点：增加了访问速度，减轻了后台服务器的压力</p>
 <p>缺点：增加了成本</p>
 <h4 id="分布式文件系统与分布式数据库系统"><a href="#分布式文件系统与分布式数据库系统" class="headerlink" title="分布式文件系统与分布式数据库系统"></a>分布式文件系统与分布式数据库系统</h4><p>背景：任何一台单一的服务器都无法满足持续增长的业务需求，即使经过读写分离，仍然无法满足需求，QPS,TPS,连接数，I/O 处理能力都有限</p>
